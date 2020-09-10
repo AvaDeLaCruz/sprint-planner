@@ -34,7 +34,6 @@ def main():
     # https://realpython.com/python-pass-by-reference/
     # instead of passing vars by reference, return multiple vars
     numTeams, numSprints, numTickets = parseNumberInputs()
-    print(numTeams, numSprints, numTickets)
     # ticketList, ticketPQ = parseAndStoreTicketData()
     # assignTickets(numTeams, numSprints, numTickets, ticketList, ticketPQ)
     # writeResults()
