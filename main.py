@@ -14,6 +14,8 @@ from queue import PriorityQueue
 
 
 class Ticket:
+    # https://www.geeksforgeeks.org/switch-case-in-python-replacement/
+    # https://towardsdatascience.com/introduction-to-priority-queues-in-python-83664d3178c3
     priorityValues = {
         "HIGH": 0,
         "MED": 1,
@@ -58,6 +60,8 @@ def parseAndStoreTicketData(numTickets):
         ticket = Ticket(int(ticketData[0]), ticketData[1], int(
             ticketData[2]), ticketData[3].rstrip())
         ticketList.append(ticket)
+
+    # https://docs.python.org/3.1/library/heapq.html#priority-queue-implementation-notes
 
     return ticketList, None
 
