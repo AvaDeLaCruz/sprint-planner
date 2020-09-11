@@ -33,15 +33,37 @@ def assignTickets(numTeams, numSprints, numTickets, ticketList, ticketPQ):
     return None
 
 
-def parseAndStoreTicketData():
+def parseAndStoreTicketData(numTickets):
+    # https://stackoverflow.com/questions/8162021/analyzing-string-input-until-it-reaches-a-certain-letter-on-python
+    # https://docs.python.org/2/library/stdtypes.html#str.partition
+    # https://www.w3schools.com/python/python_for_loops.asp
+    ticketList = []
+    ticketData = []
+    # originalLine = ''
+    line = ''
+    # for line in sys.stdin:
+    print(numTickets)
+    for n in range(numTickets):
+        # originalLine = input()
+        line = input()
+        partitionTuple = line.partition("/ ")
+        while partitionTuple[0] != '':
+            ticketData.append(partitionTuple[0])
+            line = partitionTuple[2]
+            partitionTuple = line.partition("/ ")
+        ticket = Ticket(int(ticketData[0]), ticketData[1], int(
+            ticketData[2]), ticketData[3])
+        print(ticket.__dict__)
+        ticketData = []
+
     return [], None
 
 
 def parseNumberInputs():
     # https://www.journaldev.com/32137/read-stdin-python
-    numTeams = input()
-    numSprints = input()
-    numTickets = input()
+    numTeams = int(input())
+    numSprints = int(input())
+    numTickets = int(input())
     return numTeams, numSprints, numTickets
 
 
@@ -49,13 +71,18 @@ def main():
     # https://realpython.com/python-pass-by-reference/
     # instead of passing vars by reference, return multiple vars
     numTeams, numSprints, numTickets = parseNumberInputs()
+    # numTeams = 2
+    # numSprints = 3
+    # numTickets = 7
 
-    # test = Ticket(1, 'hey there', 4, 'HIGH')
     # https://stackoverflow.com/questions/192109/is-there-a-built-in-function-to-print-all-the-current-properties-and-values-of-a
     # print current attributes and values of obj
+    # test = Ticket(1, 'hey there', 4, 'HIGH')
+    # print(test.__dict__)
+    # test.assignSprintID(9)
     # print(test.__dict__)
 
-    ticketList, ticketPQ = parseAndStoreTicketData()
+    ticketList, ticketPQ = parseAndStoreTicketData(numTickets)
     # assignTickets(numTeams, numSprints, numTickets, ticketList, ticketPQ)
     # writeResults()
     return 1
