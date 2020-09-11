@@ -38,17 +38,19 @@ def parseAndStoreTicketData(numTickets):
     # https://docs.python.org/2/library/stdtypes.html#str.partition
     # https://www.w3schools.com/python/python_for_loops.asp
     ticketList = []
-    ticketData = []
     for line in sys.stdin:
+        ticketData = []
         partitionTuple = line.partition("/ ")
+        # while the partitioned string before target sequence is not empty
+        # aka while there is still ticket data to add
         while partitionTuple[0] != '':
             ticketData.append(partitionTuple[0])
             line = partitionTuple[2]
             partitionTuple = line.partition("/ ")
+
         ticket = Ticket(int(ticketData[0]), ticketData[1], int(
             ticketData[2]), ticketData[3])
         ticketList.append(ticket)
-        ticketData = []
 
     return ticketList, None
 
@@ -66,9 +68,6 @@ def main():
     # https://realpython.com/python-pass-by-reference/
     # instead of passing vars by reference, return multiple vars
     numTeams, numSprints, numTickets = parseNumberInputs()
-    # numTeams = 2
-    # numSprints = 3
-    # numTickets = 7
 
     # https://stackoverflow.com/questions/192109/is-there-a-built-in-function-to-print-all-the-current-properties-and-values-of-a
     # print current attributes and values of obj
@@ -78,6 +77,9 @@ def main():
     # print(test.__dict__)
 
     ticketList, ticketPQ = parseAndStoreTicketData(numTickets)
+
+    # for ticket in ticketList:
+    #     print(ticket.__dict__)
 
     # assignTickets(numTeams, numSprints, numTickets, ticketList, ticketPQ)
     # writeResults()
