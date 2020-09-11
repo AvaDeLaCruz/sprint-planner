@@ -14,11 +14,18 @@ from queue import PriorityQueue
 
 
 class Ticket:
+    priorityValues = {
+        "HIGH": 0,
+        "MED": 1,
+        "LOW": 2
+    }
+
     def __init__(self, ticketID, description, teamID, priority):
         self.ticketID = ticketID
         self.description = description
         self.teamID = teamID
         self.priority = priority
+        self.priorityValue = self.priorityValues.get(priority)
         self.sprintID = None
 
     def assignSprintID(self, sprintID):
@@ -78,8 +85,8 @@ def main():
 
     ticketList, ticketPQ = parseAndStoreTicketData(numTickets)
 
-    for ticket in ticketList:
-        print(ticket.__dict__)
+    # for ticket in ticketList:
+    #     print(ticket.__dict__)
 
     # assignTickets(numTeams, numSprints, numTickets, ticketList, ticketPQ)
     # writeResults()
