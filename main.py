@@ -39,13 +39,7 @@ def parseAndStoreTicketData(numTickets):
     # https://www.w3schools.com/python/python_for_loops.asp
     ticketList = []
     ticketData = []
-    # originalLine = ''
-    line = ''
-    print(numTickets)
-    # for n in range(numTickets):
     for line in sys.stdin:
-        # originalLine = input()
-        # line = input()
         partitionTuple = line.partition("/ ")
         while partitionTuple[0] != '':
             ticketData.append(partitionTuple[0])
@@ -53,14 +47,15 @@ def parseAndStoreTicketData(numTickets):
             partitionTuple = line.partition("/ ")
         ticket = Ticket(int(ticketData[0]), ticketData[1], int(
             ticketData[2]), ticketData[3])
-        print(ticket.__dict__)
+        ticketList.append(ticket)
         ticketData = []
 
-    return [], None
+    return ticketList, None
 
 
 def parseNumberInputs():
     # https://www.journaldev.com/32137/read-stdin-python
+    # https://realpython.com/convert-python-string-to-int/
     numTeams = int(input())
     numSprints = int(input())
     numTickets = int(input())
@@ -83,6 +78,7 @@ def main():
     # print(test.__dict__)
 
     ticketList, ticketPQ = parseAndStoreTicketData(numTickets)
+
     # assignTickets(numTeams, numSprints, numTickets, ticketList, ticketPQ)
     # writeResults()
     return 1
