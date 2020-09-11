@@ -49,7 +49,7 @@ def parseAndStoreTicketData(numTickets):
             partitionTuple = line.partition("/ ")
 
         ticket = Ticket(int(ticketData[0]), ticketData[1], int(
-            ticketData[2]), ticketData[3])
+            ticketData[2]), ticketData[3].rstrip())
         ticketList.append(ticket)
 
     return ticketList, None
@@ -78,8 +78,8 @@ def main():
 
     ticketList, ticketPQ = parseAndStoreTicketData(numTickets)
 
-    # for ticket in ticketList:
-    #     print(ticket.__dict__)
+    for ticket in ticketList:
+        print(ticket.__dict__)
 
     # assignTickets(numTeams, numSprints, numTickets, ticketList, ticketPQ)
     # writeResults()
