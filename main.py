@@ -41,11 +41,11 @@ def parseAndStoreTicketData(numTickets):
     ticketData = []
     # originalLine = ''
     line = ''
-    # for line in sys.stdin:
     print(numTickets)
-    for n in range(numTickets):
+    # for n in range(numTickets):
+    for line in sys.stdin:
         # originalLine = input()
-        line = input()
+        # line = input()
         partitionTuple = line.partition("/ ")
         while partitionTuple[0] != '':
             ticketData.append(partitionTuple[0])
