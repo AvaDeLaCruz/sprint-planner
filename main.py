@@ -42,7 +42,11 @@ class Ticket:
 
 # https://dbader.org/blog/python-repr-vs-str
     def __str__(self):
-        return 'hi'
+        ticketString = str(self.ticketID) + "/ " + self.description + \
+            "/ " + str(self.teamID) + "/ " + self.priority
+        if self.sprintID is not None:
+            ticketString += "/ " + str(self.sprintID)
+        return ticketString
 
 
 def writeResults():
@@ -128,8 +132,6 @@ def parseNumberInputs():
 
 
 def main():
-    ticket = Ticket(1, "yo", 2, "HIGH")
-    print(ticket)
 
     # https://realpython.com/python-pass-by-reference/
     # instead of passing vars by reference, return multiple vars
