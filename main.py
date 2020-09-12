@@ -49,7 +49,17 @@ class Ticket:
         return ticketString
 
 
-def writeResults():
+def writeResults(assignedTickets, ticketList, numTickets):
+    assignedTicketIDs = []
+    while not assignedTickets.empty():
+        ticketTuple = assignedTickets.get()
+        ticket = ticketTuple[1]
+        print(ticket)
+        assignedTicketIDs.append(ticket.ticketID)
+    unassignedTickets = [ticketList[i]
+                         for i in range(numTickets) if i not in assignedTicketIDs]
+    for ticket in unassignedTickets:
+        print(ticket)
     return None
 
 
@@ -86,7 +96,7 @@ def sortTicketsByTeam(numTeams, numTickets, ticketList):
         teamPQ = teamsTicketsList[teamID]
         teamPQ.put(entry)
 
-    i = 0
+    # i = 0
 # https://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
     # for teamsTickets in teamsTicketsList:
     #     print(i)
@@ -150,9 +160,7 @@ def main():
 
     assignedTickets = assignTicketsToSprints(numSprints, teamsTicketsList)
 
-    # while not assignedTickets.empty():
-    #     priority, ticket = assignedTickets.get()
-    #     print(ticket.__dict__)
+    writeResults(assignedTickets, ticketList, numTickets)
 
     # for ticket in ticketList:
     #     print(ticket.__dict__)
