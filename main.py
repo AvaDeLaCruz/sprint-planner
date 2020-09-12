@@ -13,6 +13,8 @@ from queue import PriorityQueue
 
 
 class Ticket:
+    # assign low int values to high priority items as python priority queues
+    # sort priorities from low->high int values
     priorities = {
         "HIGH": 0,
         "MED": 1,
@@ -20,17 +22,24 @@ class Ticket:
     }
 
     def __init__(self, ticketID, description, teamID, priority):
+        # construct a Ticket object with the provided properties
         self.ticketID = ticketID
         self.description = description
         self.teamID = teamID
         self.priority = priority
+        # assign a priority value based on the input string to facilitate
+        # priority queue sorting based on priority string meaning
         self.priorityValue = self.priorities.get(priority)
         self.sprintID = None
 
     def assignSprintID(self, sprintID):
+        # enable the addition of a sprintID after object creation
         self.sprintID = sprintID
 
     def __str__(self):
+        # allow for print statements like print(ticket) for stdout
+        # create a string representation of a Ticket following
+        # <ticket ID>/ <description>/ <team ID>/ <priority> / <sprint ID>
         ticketString = str(self.ticketID) + "/ " + self.description + \
             "/ " + str(self.teamID) + "/ " + self.priority
         if self.sprintID is not None:
@@ -39,6 +48,12 @@ class Ticket:
 
 
 def writeResults(assignedTickets, ticketList, numTickets):
+    # print the final ordering to stdout
+    # keep track of the assigned ticket ids so that tickets
+    # which are not assigned to a sprint can be easily found later
+    # empty the assignedTickets PQ to print tickets in the correct order
+    # then, print all tickets which are not assigned to a sprint, ordered
+    # by ticketID
     assignedTicketIDs = []
     while not assignedTickets.empty():
         ticketTuple = assignedTickets.get()
@@ -54,6 +69,12 @@ def writeResults(assignedTickets, ticketList, numTickets):
 
 
 def assignTicketsToSprints(numSprints, teamsTicketsList):
+    # when printing the final results, tickets need to be ordered by sprintID, then ticketID
+    # currently, tickets are sorted by team, then ordered by priority, then by ticketID.
+    # iterate through each sprint in chronological order
+    # during each sprint, iterate through each of the teams' ticket piles/PQs
+    # if that team has tickets left, remove the one with the highest priority and assign it a sprintID
+    # add the ticket to the assignedTickets PQ, ordered by sprintID, then by ticketID
     assignedTickets = PriorityQueue()
     for sprintNum in range(numSprints):
         for teamsTickets in teamsTicketsList:
@@ -68,6 +89,8 @@ def assignTicketsToSprints(numSprints, teamsTicketsList):
 
 
 def sortTicketsByTeam(numTeams, numTickets, ticketList):
+    # sort the ticketList into priority queues of Ticket objects, one PQ per team
+    # create a list of these PQs indexed by teamID called teamsTicketsList
     teamsTicketsList = []
     for teamNumber in range(numTeams):
         teamPQ = PriorityQueue()
@@ -88,6 +111,9 @@ def sortTicketsByTeam(numTeams, numTickets, ticketList):
 
 
 def parseTicketData(numTickets):
+    # read in and store the remaining data describing the tickets to be completed
+    # create a Ticket object for each line of input and parse and store values
+    # add all of these Ticket objects to a ticketList for use later
     ticketList = []
     for line in sys.stdin:
         ticketData = []
@@ -107,6 +133,7 @@ def parseTicketData(numTickets):
 
 
 def parseNumberInputs():
+    # read in and store the number of teams, sprints, and tickets from stdin
     numTeams = int(input())
     numSprints = int(input())
     numTickets = int(input())
