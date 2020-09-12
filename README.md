@@ -8,9 +8,9 @@ You will be building a simplified sprint planner. Your program will take in a li
 
 A ticket has a ticket ID, a description, a team ID (0, 1, ...), a priority level (LOW, MED, or HIGH), and optionally, a sprint ID, which corresponds to the sprint number during which the relevant team should complete that ticket (0 = 1st sprint, 1 = 2nd sprint, etc.).
 
-The input ticket format will be as follows: <ticket ID>/ <description>/ <team ID>/ <priority>.
+The input ticket format will be as follows: `<ticket ID>/ <description>/ <team ID>/ <priority>`.
 
-For the sprint plan, you should figure out which tickets will be completed during which sprints and print out the tickets, in order of the sprint number during which they will be completed. You should append the sprint ID at the end of the ticket, like so: <ticket ID>/ <description>/ <team ID>/ <priority> / <sprint ID>
+For the sprint plan, you should figure out which tickets will be completed during which sprints and print out the tickets, in order of the sprint number during which they will be completed. You should append the sprint ID at the end of the ticket, like so: `<ticket ID>/ <description>/ <team ID>/ <priority> / <sprint ID>`
 
 Every week, a team should work on the highest priority ticket assigned to it. If there are multiple candidate tickets, the team works on the ticket with the lowest ticket ID. Tickets that will be completed during the same sprint should be ordered by ticket ID.
 
