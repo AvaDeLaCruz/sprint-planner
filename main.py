@@ -16,7 +16,7 @@ from queue import PriorityQueue
 class Ticket:
     # https://www.geeksforgeeks.org/switch-case-in-python-replacement/
     # https://towardsdatascience.com/introduction-to-priority-queues-in-python-83664d3178c3
-    priorityValues = {
+    priorities = {
         "HIGH": 0,
         "MED": 1,
         "LOW": 2
@@ -27,7 +27,7 @@ class Ticket:
         self.description = description
         self.teamID = teamID
         self.priority = priority
-        self.priorityValue = self.priorityValues.get(priority)
+        self.priorityValue = self.priorities.get(priority)
         self.sprintID = None
 
     def assignSprintID(self, sprintID):
@@ -42,7 +42,37 @@ def assignTickets(numTeams, numSprints, numTickets, ticketList, ticketPQ):
     return None
 
 
-def parseAndStoreTicketData(numTickets):
+def sortTicketsByTeam(numTeams, numTickets, ticketList):
+    teamsTicketsList = []
+    for teamNumber in range(numTeams):
+        teamPQ = PriorityQueue()
+        teamsTicketsList.insert(teamNumber, teamPQ)
+    # for n in range(numTickets):
+    for ticket in ticketList:
+        # create an entry with priorityValue as the first priority
+        # ticketID as the tiebreaker
+        # and the Ticket object ticket
+        ticketID = ticket.ticketID
+        priorityValue = ticket.priorityValue
+        entry = ((priorityValue, ticketID), ticket)
+        # insert the entry into the PQ associated with the Ticket's team
+        teamID = ticket.teamID
+        teamPQ = teamsTicketsList[teamID]
+        teamPQ.put(entry)
+
+    i = 0
+# https://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
+    for teamsTickets in teamsTicketsList:
+        print(i)
+        while not teamsTickets.empty():
+            priority, ticket = teamsTickets.get()
+            print(ticket.__dict__)
+        i = i+1
+
+    return teamsTicketsList
+
+
+def parseTicketData(numTickets):
     # https://stackoverflow.com/questions/8162021/analyzing-string-input-until-it-reaches-a-certain-letter-on-python
     # https://docs.python.org/2/library/stdtypes.html#str.partition
     # https://www.w3schools.com/python/python_for_loops.asp
@@ -63,7 +93,7 @@ def parseAndStoreTicketData(numTickets):
 
     # https://docs.python.org/3.1/library/heapq.html#priority-queue-implementation-notes
 
-    return ticketList, None
+    return ticketList
 
 
 def parseNumberInputs():
@@ -87,7 +117,9 @@ def main():
     # test.assignSprintID(9)
     # print(test.__dict__)
 
-    ticketList, ticketPQ = parseAndStoreTicketData(numTickets)
+    ticketList = parseTicketData(numTickets)
+
+    teamsTicketsList = sortTicketsByTeam(numTeams, numTickets, ticketList)
 
     # for ticket in ticketList:
     #     print(ticket.__dict__)
