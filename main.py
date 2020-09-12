@@ -38,8 +38,19 @@ def writeResults():
     return None
 
 
-def assignTickets(numTeams, numSprints, numTickets, ticketList, ticketPQ):
-    return None
+def assignTicketsToSprints(numSprints, teamsTicketsList):
+    assignedTickets = PriorityQueue()
+    for sprintNum in range(numSprints):
+        for teamsTickets in teamsTicketsList:
+            if not teamsTickets.empty():
+                # oldPriority, ticket = teamsTickets.get()
+                teamTuple = teamsTickets.get()
+                ticket = teamTuple[1]
+                ticket.assignSprintID(sprintNum)
+                entry = ((sprintNum, ticket.ticketID), ticket)
+                assignedTickets.put(entry)
+
+    return assignedTickets
 
 
 def sortTicketsByTeam(numTeams, numTickets, ticketList):
@@ -62,12 +73,12 @@ def sortTicketsByTeam(numTeams, numTickets, ticketList):
 
     i = 0
 # https://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
-    for teamsTickets in teamsTicketsList:
-        print(i)
-        while not teamsTickets.empty():
-            priority, ticket = teamsTickets.get()
-            print(ticket.__dict__)
-        i = i+1
+    # for teamsTickets in teamsTicketsList:
+    #     print(i)
+    #     while not teamsTickets.empty():
+    #         priority, ticket = teamsTickets.get()
+    #         print(ticket.__dict__)
+    #     i = i+1
 
     return teamsTicketsList
 
@@ -120,6 +131,12 @@ def main():
     ticketList = parseTicketData(numTickets)
 
     teamsTicketsList = sortTicketsByTeam(numTeams, numTickets, ticketList)
+
+    assignedTickets = assignTicketsToSprints(numSprints, teamsTicketsList)
+
+    while not assignedTickets.empty():
+        priority, ticket = assignedTickets.get()
+        print(ticket.__dict__)
 
     # for ticket in ticketList:
     #     print(ticket.__dict__)
