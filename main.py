@@ -13,7 +13,14 @@ from queue import PriorityQueue
 # https://www.programiz.com/python-programming/class
 
 
+# class TicketMetaclass:
+#     def __repr__(self):
+#         return "hi"
+
+
 class Ticket:
+
+    # __metaclass__ = TicketMetaclass
     # https://www.geeksforgeeks.org/switch-case-in-python-replacement/
     # https://towardsdatascience.com/introduction-to-priority-queues-in-python-83664d3178c3
     priorities = {
@@ -32,6 +39,10 @@ class Ticket:
 
     def assignSprintID(self, sprintID):
         self.sprintID = sprintID
+
+# https://dbader.org/blog/python-repr-vs-str
+    def __str__(self):
+        return 'hi'
 
 
 def writeResults():
@@ -117,6 +128,9 @@ def parseNumberInputs():
 
 
 def main():
+    ticket = Ticket(1, "yo", 2, "HIGH")
+    print(ticket)
+
     # https://realpython.com/python-pass-by-reference/
     # instead of passing vars by reference, return multiple vars
     numTeams, numSprints, numTickets = parseNumberInputs()
@@ -134,9 +148,9 @@ def main():
 
     assignedTickets = assignTicketsToSprints(numSprints, teamsTicketsList)
 
-    while not assignedTickets.empty():
-        priority, ticket = assignedTickets.get()
-        print(ticket.__dict__)
+    # while not assignedTickets.empty():
+    #     priority, ticket = assignedTickets.get()
+    #     print(ticket.__dict__)
 
     # for ticket in ticketList:
     #     print(ticket.__dict__)
